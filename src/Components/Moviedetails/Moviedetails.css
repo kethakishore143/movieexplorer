@@ -1,0 +1,16 @@
+.movie-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.movie-details-content {
+    text-align: left;
+}
+
+.movie-poster {
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin: 20px 0;
+}
