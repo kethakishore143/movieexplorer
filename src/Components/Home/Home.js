@@ -9,10 +9,10 @@ const Home = () => {
     const [MovieResults, setMovieResults] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [page, setPage] = useState(1);
+    const [totalResults, setTotalResults] = useState(0);
 
-
-
-    const fetchMovieResults = async () => {
+    const fetchMovieResults = async (pageNumber = 1) => {
         if (Moviename.trim() === '') {
             setMovieResults([]);
             setError('');
@@ -22,12 +22,13 @@ const Home = () => {
         setLoading(true);
         setError('');
         try {
-            const response = await fetch(`https://www.omdbapi.com/?s=${Moviename}&apikey=98e1b3cc`);
+            const response = await fetch(`https://www.omdbapi.com/?s=${Moviename}&apikey=98e1b3cc&page=${pageNumber}`);
             const data = await response.json();
-            console.log(data)
+            console.log(data);
 
             if (data.Response === 'True') {
-                setMovieResults(data.Search);
+                setTotalResults(parseInt(data.totalResults, 10));
+                setMovieResults((prevResults) => [...prevResults, ...data.Search]);
             } else {
                 setError('No results found.');
                 setMovieResults([]);
@@ -40,12 +41,19 @@ const Home = () => {
         setLoading(false);
     };
 
-
-
     const handleSearchInput = (event) => {
         setMoviename(event.target.value);
+        setPage(1);
+        setMovieResults([]);
     };
 
+    const loadMoreResults = () => {
+        const nextPage = page + 1;
+        if (MovieResults.length < totalResults) {
+            setPage(nextPage);
+            fetchMovieResults(nextPage);
+        }
+    };
 
     const displayMovieCards = (data) => {
         return data.map((movie) => {
@@ -66,7 +74,6 @@ const Home = () => {
             );
         });
     };
-
 
     useEffect(() => {
         if (Moviename) {
@@ -90,15 +97,22 @@ const Home = () => {
                         onChange={handleSearchInput}
                         value={Moviename}
                     />
-                    <button className="search-button" onClick={fetchMovieResults}>Search</button>
+                    <button className="search-button" onClick={() => fetchMovieResults(1)}>Search</button>
                 </div>
                 {loading && <p>Loading...</p>}
-                {error && <p>{error}</p>}
+                {error && <p className='error'>{error}</p>}
                 <div className="movie-grid">
                     {MovieResults.length > 0 && displayMovieCards(MovieResults)}
                 </div>
+                {MovieResults.length > 0 && MovieResults.length < totalResults && (
+                    <button className="load-more-button" onClick={loadMoreResults}>
+                        Load More
+                    </button>
+                )}
             </div>
-            <Footer />
+            <div className='footer_container'>
+                <Footer />
+            </div>
         </div>
     );
 };

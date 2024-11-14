@@ -1,3 +1,9 @@
+.home-page {
+    height: 100%;
+
+
+}
+
 .movie-grid {
     display: flex;
     flex-wrap: wrap;
@@ -29,6 +35,10 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: y;
+
 }
 
 .search-container {
@@ -104,4 +114,33 @@ h3 {
 p {
     font-size: 14px;
     color: #555;
+}
+
+.footer_container {
+
+    margin-top: 2px;
+}
+
+
+.error {
+    font-size: 20px;
+    font-weight: 400;
+    color: red;
+}
+
+
+.load-more-button {
+    padding: 10px 20px;
+    margin: 20px auto;
+    display: block;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.load-more-button:hover {
+    background-color: #0056b3;
 }

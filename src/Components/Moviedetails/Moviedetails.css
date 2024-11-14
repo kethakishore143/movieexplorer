@@ -14,3 +14,11 @@
     display: block;
     margin: 20px 0;
 }
+
+.back_btn {
+    background-color: blueviolet;
+    color: #ffffff;
+    padding: 20px;
+    align-content: flex-end;
+    margin: 10px;
+}

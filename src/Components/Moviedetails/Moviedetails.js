@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import './Moviedetails.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -55,6 +55,11 @@ const Moviedetails = () => {
                 ) : (
                     <p>No data available.</p>
                 )}
+            </div>
+            <div>
+                <NavLink to="/movieexplorer">
+                    <button className='back_btn'>back</button>
+                </NavLink>
             </div>
             <Footer />
         </div>
